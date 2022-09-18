@@ -1,6 +1,6 @@
 import { TSESLint } from "@typescript-eslint/utils"
 
-export const unNecessarySetState: TSESLint.RuleModule<"messageId", []> = {
+export const noSetState: TSESLint.RuleModule<"messageId", []> = {
   meta: {
     type: "suggestion",
     messages: {
@@ -11,7 +11,13 @@ export const unNecessarySetState: TSESLint.RuleModule<"messageId", []> = {
   defaultOptions: [],
   create: (context) => {
     return {
-      JSXElement(node) {},
+      CallExpression(node) {
+        console.log("clg,", node)
+        context.report({
+          node,
+          messageId: "messageId",
+        })
+      },
     }
   },
 }
